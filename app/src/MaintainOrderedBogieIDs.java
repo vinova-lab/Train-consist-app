@@ -40,12 +40,12 @@ public class TrainConsistApp {
         System.out.println("Passenger Bogies (Original):");
         bogieList.forEach(System.out::println);
 
-        // 🔹 UC7: Sort bogies
+        // 🔹 UC7: Sort bogies by capacity
         bogieList.sort(Comparator.comparingInt(Bogie::getCapacity));
-        System.out.println("\nSorted Bogies (By Capacity):");
+        System.out.println("\nPassenger Bogies (Sorted by Capacity):");
         bogieList.forEach(System.out::println);
 
-        // 🔹 UC8: Filter (capacity > 60)
+        // 🔹 UC8: Filter bogies (capacity > 60)
         List<Bogie> filteredBogies = bogieList.stream()
                 .filter(b -> b.getCapacity() > 60)
                 .collect(Collectors.toList());
@@ -53,7 +53,7 @@ public class TrainConsistApp {
         System.out.println("\nFiltered Bogies (Capacity > 60):");
         filteredBogies.forEach(System.out::println);
 
-        // 🔹 UC9: Group by type
+        // 🔹 UC9: Group bogies by type
         Map<String, List<Bogie>> groupedBogies = bogieList.stream()
                 .collect(Collectors.groupingBy(Bogie::getName));
 
@@ -67,8 +67,8 @@ public class TrainConsistApp {
 
         // 🔹 UC10: Total seat calculation using reduce()
         int totalSeats = bogieList.stream()
-                .map(b -> b.getCapacity())     // extract capacity
-                .reduce(0, Integer::sum);      // sum all values
+                .map(Bogie::getCapacity)
+                .reduce(0, Integer::sum);
 
         System.out.println("\nTotal Seating Capacity: " + totalSeats);
     }
