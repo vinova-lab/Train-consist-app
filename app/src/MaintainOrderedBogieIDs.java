@@ -2,12 +2,16 @@ import java.util.*;
 import java.util.stream.*;
 
 class Bogie {
-    String type;
-    int capacity;
+    private String name;
+    private int capacity;
 
-    public Bogie(String type, int capacity) {
-        this.type = type;
+    public Bogie(String name, int capacity) {
+        this.name = name;
         this.capacity = capacity;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getCapacity() {
@@ -16,7 +20,7 @@ class Bogie {
 
     @Override
     public String toString() {
-        return "Bogie Type: " + type + ", Capacity: " + capacity;
+        return name + " (" + capacity + " seats)";
     }
 }
 
@@ -24,29 +28,29 @@ public class TrainConsistApp {
 
     public static void main(String[] args) {
 
-        // Create bogie list (UC7 reused)
+        // Create a list of passenger bogies
         List<Bogie> bogieList = new ArrayList<>();
-
         bogieList.add(new Bogie("Sleeper", 72));
         bogieList.add(new Bogie("AC Chair", 60));
         bogieList.add(new Bogie("First Class", 50));
         bogieList.add(new Bogie("Sleeper", 80));
 
-        // Display original list
-        System.out.println("Original Bogie List:");
-        for (Bogie b : bogieList) {
-            System.out.println(b);
-        }
+        // 🔹 Display original list
+        System.out.println("Passenger Bogies (Original):");
+        bogieList.forEach(System.out::println);
 
-        // UC8: Filter using Stream API
+        // 🔹 UC7: Sort bogies by capacity
+        bogieList.sort(Comparator.comparingInt(Bogie::getCapacity));
+        System.out.println("\nPassenger Bogies (Sorted by Capacity):");
+        bogieList.forEach(System.out::println);
+
+        // 🔹 UC8: Filter bogies using Stream API (capacity > 60)
         List<Bogie> filteredBogies = bogieList.stream()
                 .filter(b -> b.getCapacity() > 60)
                 .collect(Collectors.toList());
 
-        // Display filtered list
+        // 🔹 Display filtered list
         System.out.println("\nFiltered Bogies (Capacity > 60):");
-        for (Bogie b : filteredBogies) {
-            System.out.println(b);
-        }
+        filteredBogies.forEach(System.out::println);
     }
 }
