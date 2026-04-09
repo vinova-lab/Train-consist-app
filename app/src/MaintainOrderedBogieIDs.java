@@ -1,25 +1,52 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.*;
 
-public class TrainApp {
+class Bogie {
+    String type;
+    int capacity;
+
+    public Bogie(String type, int capacity) {
+        this.type = type;
+        this.capacity = capacity;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    @Override
+    public String toString() {
+        return "Bogie Type: " + type + ", Capacity: " + capacity;
+    }
+}
+
+public class TrainConsistApp {
 
     public static void main(String[] args) {
 
-        // Welcome message
-        System.out.println("=== Train Consist Management App ===");
+        // Create bogie list (UC7 reused)
+        List<Bogie> bogieList = new ArrayList<>();
 
-        // Create HashMap to store bogie-capacity mapping
-        Map<String, Integer> bogieCapacity = new HashMap<>();
+        bogieList.add(new Bogie("Sleeper", 72));
+        bogieList.add(new Bogie("AC Chair", 60));
+        bogieList.add(new Bogie("First Class", 50));
+        bogieList.add(new Bogie("Sleeper", 80));
 
-        // Insert capacities for passenger bogies
-        bogieCapacity.put("Sleeper", 72);
-        bogieCapacity.put("AC Chair", 54);
-        bogieCapacity.put("First Class", 36);
+        // Display original list
+        System.out.println("Original Bogie List:");
+        for (Bogie b : bogieList) {
+            System.out.println(b);
+        }
 
-        // Display bogie capacities
-        System.out.println("\nBogie Capacities:");
-        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-            System.out.println(entry.getKey() + " → " + entry.getValue() + " seats");
+        // UC8: Filter using Stream API
+        List<Bogie> filteredBogies = bogieList.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .collect(Collectors.toList());
+
+        // Display filtered list
+        System.out.println("\nFiltered Bogies (Capacity > 60):");
+        for (Bogie b : filteredBogies) {
+            System.out.println(b);
         }
     }
 }
