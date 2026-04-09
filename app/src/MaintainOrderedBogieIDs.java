@@ -1,5 +1,30 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+// Define a Bogie class with name and capacity
+class Bogie {
+    private String name;
+    private int capacity;
+
+    public Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + capacity + " seats)";
+    }
+}
 
 public class TrainApp {
 
@@ -8,18 +33,21 @@ public class TrainApp {
         // Welcome message
         System.out.println("=== Train Consist Management App ===");
 
-        // Create HashMap to store bogie-capacity mapping
-        Map<String, Integer> bogieCapacity = new HashMap<>();
+        // Create a list of passenger bogies
+        List<Bogie> passengerBogies = new ArrayList<>();
+        passengerBogies.add(new Bogie("Sleeper", 72));
+        passengerBogies.add(new Bogie("AC Chair", 54));
+        passengerBogies.add(new Bogie("First Class", 36));
 
-        // Insert capacities for passenger bogies
-        bogieCapacity.put("Sleeper", 72);
-        bogieCapacity.put("AC Chair", 54);
-        bogieCapacity.put("First Class", 36);
+        // Display unsorted bogies
+        System.out.println("\nPassenger Bogies (Unsorted):");
+        passengerBogies.forEach(System.out::println);
 
-        // Display bogie capacities
-        System.out.println("\nBogie Capacities:");
-        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-            System.out.println(entry.getKey() + " → " + entry.getValue() + " seats");
-        }
+        // Sort bogies by capacity using Comparator
+        passengerBogies.sort(Comparator.comparingInt(Bogie::getCapacity));
+
+        // Display sorted bogies
+        System.out.println("\nPassenger Bogies (Sorted by Capacity):");
+        passengerBogies.forEach(System.out::println);
     }
 }
