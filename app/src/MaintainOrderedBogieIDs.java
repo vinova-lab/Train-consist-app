@@ -28,14 +28,15 @@ public class TrainConsistApp {
 
     public static void main(String[] args) {
 
-        // Create a list of passenger bogies
+        // 🔹 Create bogie list
         List<Bogie> bogieList = new ArrayList<>();
         bogieList.add(new Bogie("Sleeper", 72));
         bogieList.add(new Bogie("AC Chair", 60));
         bogieList.add(new Bogie("First Class", 50));
         bogieList.add(new Bogie("Sleeper", 80));
+        bogieList.add(new Bogie("AC Chair", 55));
 
-        // 🔹 Display original list
+        // 🔹 UC7: Display original list
         System.out.println("Passenger Bogies (Original):");
         bogieList.forEach(System.out::println);
 
@@ -44,13 +45,24 @@ public class TrainConsistApp {
         System.out.println("\nPassenger Bogies (Sorted by Capacity):");
         bogieList.forEach(System.out::println);
 
-        // 🔹 UC8: Filter bogies using Stream API (capacity > 60)
+        // 🔹 UC8: Filter bogies (capacity > 60)
         List<Bogie> filteredBogies = bogieList.stream()
                 .filter(b -> b.getCapacity() > 60)
                 .collect(Collectors.toList());
 
-        // 🔹 Display filtered list
         System.out.println("\nFiltered Bogies (Capacity > 60):");
         filteredBogies.forEach(System.out::println);
+
+        // 🔹 UC9: Group bogies by type
+        Map<String, List<Bogie>> groupedBogies = bogieList.stream()
+                .collect(Collectors.groupingBy(Bogie::getName));
+
+        System.out.println("\nGrouped Bogies (By Type):");
+        for (Map.Entry<String, List<Bogie>> entry : groupedBogies.entrySet()) {
+            System.out.println(entry.getKey() + " ->");
+            for (Bogie b : entry.getValue()) {
+                System.out.println("   " + b);
+            }
+        }
     }
 }
