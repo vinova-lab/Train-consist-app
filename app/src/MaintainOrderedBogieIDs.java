@@ -64,5 +64,12 @@ public class TrainConsistApp {
                 System.out.println("   " + b);
             }
         }
+
+        // 🔹 UC10: Total seat calculation using reduce()
+        int totalSeats = bogieList.stream()
+                .map(Bogie::getCapacity)
+                .reduce(0, Integer::sum);
+
+        System.out.println("\nTotal Seating Capacity: " + totalSeats);
     }
 }
