@@ -1,0 +1,88 @@
+package main;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+class Bogie {
+    private String bogieId;
+    private String type;
+    private int capacity;
+
+    public Bogie(String bogieId, String type, int capacity) {
+        this.bogieId = bogieId;
+        this.type = type;
+        this.capacity = capacity;
+    }
+
+    public String getBogieId() {
+        return bogieId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    @Override
+    public String toString() {
+        return "Bogie{" +
+                "bogieId='" + bogieId + '\'' +
+                ", type='" + type + '\'' +
+                ", capacity=" + capacity +
+                '}';
+    }
+}
+
+public class UseCase13TrainConsisntMgmt {
+
+    public static List<Bogie> filterUsingLoop(List<Bogie> bogies) {
+        List<Bogie> result = new ArrayList<>();
+        for (Bogie bogie : bogies) {
+            if (bogie.getCapacity() > 60) {
+                result.add(bogie);
+            }
+        }
+        return result;
+    }
+
+    public static List<Bogie> filterUsingStream(List<Bogie> bogies) {
+        return bogies.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .collect(Collectors.toList());
+    }
+
+    public static long measureLoopExecutionTime(List<Bogie> bogies) {
+        long startTime = System.nanoTime();
+        filterUsingLoop(bogies);
+        long endTime = System.nanoTime();
+        return endTime - startTime;
+    }
+
+    public static long measureStreamExecutionTime(List<Bogie> bogies) {
+        long startTime = System.nanoTime();
+        filterUsingStream(bogies);
+        long endTime = System.nanoTime();
+        return endTime - startTime;
+    }
+
+    public static void main(String[] args) {
+        List<Bogie> bogieList = new ArrayList<>();
+
+        bogieList.add(new Bogie("B1", "Passenger", 72));
+        bogieList.add(new Bogie("B2", "Passenger", 58));
+        bogieList.add(new Bogie("B3", "Sleeper", 65));
+        bogieList.add(new Bogie("B4", "Goods", 40));
+        bogieList.add(new Bogie("B5", "Passenger", 80));
+        bogieList.add(new Bogie("B6", "Sleeper", 55));
+
+        long loopTime = measureLoopExecutionTime(bogieList);
+        long streamTime = measureStreamExecutionTime(bogieList);
+
+        System.out.println("Loop-based filtering time: " + loopTime + " ns");
+        System.out.println("Stream-based filtering time: " + streamTime + " ns");
+    }
+}
