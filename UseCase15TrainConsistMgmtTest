@@ -1,0 +1,38 @@
+package test;
+
+import main.GoodsBogie;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+public class UseCase15TrainConsistMgmtTest {
+
+    @Test
+    public void testSafeCargoAssignment() {
+        GoodsBogie bogie = new GoodsBogie("G1", "Cylindrical");
+        bogie.assignCargo("Petroleum");
+
+        assertEquals("Petroleum", bogie.getCargo());
+    }
+
+    @Test
+    public void testUnsafeCargoAssignment() {
+        GoodsBogie bogie = new GoodsBogie("G2", "Rectangular");
+        bogie.assignCargo("Petroleum");
+
+        assertNull(bogie.getCargo());
+    }
+
+    @Test
+    public void testApplicationContinuesAfterFailure() {
+        GoodsBogie bogie1 = new GoodsBogie("G1", "Rectangular");
+        bogie1.assignCargo("Petroleum");
+
+        GoodsBogie bogie2 = new GoodsBogie("G2", "Cylindrical");
+        bogie2.assignCargo("Coal");
+
+        assertNull(bogie1.getCargo());
+        assertEquals("Coal", bogie2.getCargo());
+    }
+}
