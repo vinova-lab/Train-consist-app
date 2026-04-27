@@ -1,0 +1,34 @@
+package main;
+
+public class UseCase20TrainConsisntMgmt {
+
+    public static boolean searchBogie(String[] bogieIds, String searchKey) {
+        if (bogieIds == null || bogieIds.length == 0) {
+            throw new IllegalStateException("Search cannot be performed. No bogies are available in the train.");
+        }
+
+        for (String bogieId : bogieIds) {
+            if (bogieId.equals(searchKey)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static void main(String[] args) {
+        String[] bogieIds = {};
+
+        try {
+            boolean found = searchBogie(bogieIds, "B101");
+
+            if (found) {
+                System.out.println("Bogie found.");
+            } else {
+                System.out.println("Bogie not found.");
+            }
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
