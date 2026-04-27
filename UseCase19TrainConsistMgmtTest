@@ -1,0 +1,46 @@
+package test;
+
+import main.UseCase19TrainConsisntMgmt;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class UseCase19TrainConsistMgmtTest {
+
+    @Test
+    public void testBogieIdFound() {
+        String[] bogieIds = {"B101", "B103", "B104", "B107", "B109"};
+
+        boolean result = UseCase19TrainConsisntMgmt.binarySearch(bogieIds, "B107");
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testBogieIdNotFound() {
+        String[] bogieIds = {"B101", "B103", "B104", "B107", "B109"};
+
+        boolean result = UseCase19TrainConsisntMgmt.binarySearch(bogieIds, "B999");
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSearchFirstElement() {
+        String[] bogieIds = {"B101", "B103", "B104", "B107", "B109"};
+
+        boolean result = UseCase19TrainConsisntMgmt.binarySearch(bogieIds, "B101");
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testSearchLastElement() {
+        String[] bogieIds = {"B101", "B103", "B104", "B107", "B109"};
+
+        boolean result = UseCase19TrainConsisntMgmt.binarySearch(bogieIds, "B109");
+
+        assertTrue(result);
+    }
+}
